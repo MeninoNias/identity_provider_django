@@ -52,15 +52,13 @@ class SingInAPIView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            print(serializer.data)
             user = serializer.data.get('user')
 
-            sleep(500/1000)
+            # sleep(500/1000)
 
             token = serializer.data.get('token')
             response_data = {'user': user, 'token': token}
             response = Response(response_data)
-            response['authorization'] = response_data['token']
             return response
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
