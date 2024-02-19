@@ -58,7 +58,7 @@ class SingInAPIView(APIView):
 
             token = serializer.data.get('token')
             response_data = {'user': user, 'token': token}
-            response = Response(response_data)
+            response = Response(response_data, status=status.HTTP_200_OK)
             return response
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
