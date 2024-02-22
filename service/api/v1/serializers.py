@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'name', 'is_active', 'create_at', 'update_at']
+        fields = ['id', 'email', 'name', 'is_active', 'create_at', 'update_at']
 
 
 class SingInUserSerializer(serializers.Serializer):
