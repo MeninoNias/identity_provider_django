@@ -20,7 +20,7 @@ class IdentityProviderAuthentication(authentication.BasicAuthentication):
     def authenticate_credentials(self, userid, password, request=None):
         try:
             client = IdentityClient.objects.get(app_id=userid, api_key=password)
+            return (IdentityProviderUser(client), None)
         except:
              raise exceptions.AuthenticationFailed()
-         
-        return (IdentityProviderUser(client), None)
+
