@@ -9,7 +9,7 @@ from service.models import IdentityClient
 class IdentityProviderUser(AnonymousUser):
 
     def __init__(self, client):
-        super.identityClient = client
+        self.identityClient = client
     
     @property
     def is_authenticated(self):
