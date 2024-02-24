@@ -38,8 +38,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     email = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=128, null=True, blank=True)
-    first_name = models.CharField(u'Primeiro nome', max_length=MAX_LENGTH_NAME, blank=True, null=True)
-    last_name = models.CharField(u'Último nome', max_length=60, blank=True, null=True)
+    first_name = models.CharField(
+        u'Primeiro nome', max_length=MAX_LENGTH_NAME, blank=True, null=True)
+    last_name = models.CharField(
+        u'Último nome', max_length=60, blank=True, null=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -58,3 +60,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.get_full_name
 
+
+class IdentityClient(models.Model):
+    class Meta:
+        verbose_name = 'Cliente de identidade'
+        verbose_name_plural = 'Clientes de identidade'
+
+    name = models.CharField(max_length=255)
+    app_id = models.CharField(max_length=40, unique=True)
+    api_key = models.CharField(max_length=40, unique=True)
+
+    def __str__(self):
+        return f'{self.name}'

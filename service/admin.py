@@ -3,8 +3,15 @@ from django.contrib.auth.forms import AdminPasswordChangeForm, UserChangeForm, U
 from django.urls import path, reverse
 from django.http import HttpResponse
 
-from service.models import User
+from service.models import User, IdentityClient
 
+class BaseAdmin(admin.ModelAdmin):
+    queryset_class = None
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields
+        return ()
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -63,3 +70,12 @@ class UserAdmin(admin.ModelAdmin):
     #             name='auth_user_password_change',
     #         ),
     #     ] + super().get_urls()
+
+
+@admin.register(IdentityClient)
+class IdentityClientAdmin(BaseAdmin):
+    queryset_class = IdentityClient
+    list_display = ['name', 'app_id', 'api_key',]
+    ordering = ['name',]
+    search_fields = ['app_id', 'name', 'api_key',]
+    readonly_fields = ['app_id', 'api_key',]
